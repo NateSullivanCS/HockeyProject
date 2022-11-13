@@ -6,14 +6,10 @@ from tkinter import *
 from tkinter import filedialog
 import warnings #Used to ignore deprication warnings, mostly in TK
 
-warnings.filterwarnings("ignore", category=DeprecationWarning) # Not working
-
-
 #Prints output of where user is in PC (Absolute Pathname)
 print(sys.argv)
 
-#TODO: Define player class that stores all variables 
-    #Defines the player structure, arrays of variables stored in Hockey Catapult CSV.
+# Player Structure takes all variables from CSV export 2022-2023 Season
 class Player:
         def __init__(self):
             self = self
@@ -41,6 +37,8 @@ class Player:
             pBand3Fs = pBand3Fs
         def skatingLoadMin(skatingLoadMin):
             skatingLoadMin = skatingLoadMin
+
+# Variables each have their own array indexing at the specific player
 playerNames = []
 playerLoads = []
 playerLoadsMin = []
@@ -56,52 +54,9 @@ skatingLoadMin = []
 
 
 
-#TODO: Prompt User to import a file 
-    # Store other variables such as date, see if data in spreadsheets match 
-
-#Method used by Tk to store file thats scanned by CSV scanner
-def openFile():
-    global file
-    filepath = filedialog.askopenfilename()
-    file = filepath
-
-#See the global 'file' variable that user imports
-def printFile():
-    print(file)
-
-# Used to get import from user
-window = Tk()
-Button = Button(text="Select File", command=openFile)
-Button.pack()
-window.mainloop()
-
-# Used to test & see the file that the user imported, is it stored correctly?
-print("\nShould be here: ")
-print(printFile())
-
-
-
-# Very primitive, find a different method to enter later.
-#USE THIS: "/Users/natesullivan/Desktop/Hockey Catapult Project/Coding/catapultexportex.csv"
-#file = input("Please select the path of the CSV file to input: ")
-#print("You entered: " + file)
-
-
-#TODO: Scan CSV File
-    # Store allData in array.
-    # For each player in first row, create a new unique player object
-
-#Basically takes a string form of the absolute path of the file destination and scans that as a CSV.
-with open(file, 'r') as infile:
-    rows = csv.reader(infile, delimiter=',')
-    header = next(rows)
-    allData = []
-
-    for row in rows:
-        allData.append(row)
-
-
- #Initialize Blank Player Objects
+#for i in range(32):
+#   players.append(Player())
+#print(players)
 player1 = Player()
 player2 = Player()
 player3 = Player()
@@ -134,9 +89,49 @@ player29 = Player()
 player30 = Player()
 player31 = Player()
 player32 = Player()
-
-#There are going to be blank player objects, but this is fine for now
 playerList = [player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, player12, player13, player14, player15, player16, player17, player18, player19, player19, player20, player21, player22, player23, player24, player25, player26, player27, player28, player29, player30, player31, player32]
+
+
+#TODO: Prompt User to import a file 
+# Store other variables such as date, see if data in spreadsheets match 
+#Method used by Tk to store file thats scanned by CSV scanner
+def openFile():
+    global file
+    filepath = filedialog.askopenfilename()
+    file = filepath
+
+#See the global 'file' variable that user imports
+def printFile():
+    print(file)
+
+# Used to get import from user
+#def openButton():
+def importCSV():
+    window = Tk()
+    myButton = Button(text="Select File", command=openFile)
+    myButton.pack()
+    window.mainloop()
+
+
+
+
+
+# Used to test & see the file that the user imported, is it stored correctly?
+print("\nShould be here: ")
+print(printFile())
+
+
+#Prompts user to import initial CSV file
+importCSV()
+
+#Basically takes a string form of the absolute path of the file destination and scans that as a CSV.
+with open(file, 'r') as infile:
+    rows = csv.reader(infile, delimiter=',')
+    header = next(rows)
+    allData = []
+
+    for row in rows:
+        allData.append(row)
 
 
 for row in allData:
@@ -152,6 +147,7 @@ for row in allData:
     band2Force.append(row[9])
     band3Force.append(row[10])
     skatingLoadMin.append(row[11])
+
 
 #TODO: Go through all data and store variables in the player object
 i = 0;
@@ -173,7 +169,6 @@ for obj in playerNames:
 
 
 
-
 #Testing Outputs for player structures.
 print(player13.name)
 print(player13.skatingLoad)
@@ -182,12 +177,18 @@ print(player25.name)
 
 
 running = 1
-
-#while (running):
-   # print("Here are the options for the CSV interface")
+userInput = ""
+while (running):
+    userInput = raw_input("Please input a command:\n")
+    if (userInput == "import"):
+        importCSV()
+    elif (userInput == "export"):
+        print("exporting data bitch!")
+    elif (userInput == "end"):
+        running = 0
+    elif (userInput == "uh"):
+        print("testing uh statement last after end")
     # Basically, we can do a very similar format to the Clue Game from CS230
-    # If user types 'end'. Set running int to 0
-    # If user types 'import'. prompt the user to imput another practice
     # If user types 'average', prompt user to see averages of all practices from the imputted data, (GO TO B TO GET MORE EQUATIONS THAT HE USES)
     # If user types 'export', export to: spreadsheets? pdf of averages for each player? lots of possibilities
     # If user types 
@@ -204,4 +205,7 @@ running = 1
     #2) Export a spreadsheet of data comparing the players by a variable.
       # - "Select varaibles and players you would like to compare or practices"
     #3) -
+
+
+
 
