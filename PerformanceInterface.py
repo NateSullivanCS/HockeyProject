@@ -440,13 +440,13 @@ root.geometry('768x432')
 root.title("Massachusetts Hockey Performance")
 
 # Create a PhotoImage object
-image = PhotoImage(file="1200px-UMass_Amherst_Athletics_logo.svg.PGM")
+#image = PhotoImage(file="1200px-UMass_Amherst_Athletics_logo.svg.PGM")
 # Create a label with the image
-label = Label(root, image=image, bg="gray")
+#label = Label(root, image=image, bg="gray")
 # Set the image as the background of the label
-label.image = image
+#label.image = image
 # Add the label to the GUI
-label.pack()
+#label.pack()
 
 
 # Initialize Buttons
